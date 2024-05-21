@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>World City Populations Chart 1950-2035</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+<script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.3.0/dimple.latest.min.js"></script>
+
+<style>    
+    #chartContainer {width: 640px; height: auto; margin: auto; margin-top: 30px; }
+    #chartContainer p {margin-left: 60px; margin-bottom: 5px; margin-top: 0; padding: 0;}
+    #charttitle {font: bold 22px  Verdana, sans-serif;}
+</style>
+
+</head>
+
+    
+<body>
+
+<div id="chartContainer">
+      
+    <p id="charttitle">Renewable Energy Usage</p>
+    <p id="chartsubhead">Data from 2010-2022. From GOV.UK.</p>
+
+</div>
+
+
+<script>
+
+      d3.csv("renewable.csv", function(Renewable) {
+        
+
+        var RenewableIndex = 1;
+        console.log(Renewable[0]);
+        document.getElementById("charttitle").innerHTML = "Renewable Energy Usage";
+
+          
+        var svg = dimple.newSvg("#chartContainer", 1000, 640);
+       
+        var chartdata = [];
+          
+        for (let RenewableIndex=0; RenewableIndex < 4; RenewableIndex++) {
+            var name = Renewable[RenewableIndex].Factors;
+            console.log(name);
+            chartdata.push(
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2010","Mtoe":Renewable[RenewableIndex].a2010 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2011","Mtoe":Renewable[RenewableIndex].a2011 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2012","Mtoe":Renewable[RenewableIndex].a2012 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2013","Mtoe":Renewable[RenewableIndex].a2013 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2014","Mtoe":Renewable[RenewableIndex].a2014 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2015","Mtoe":Renewable[RenewableIndex].a2015 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2016","Mtoe":Renewable[RenewableIndex].a2016 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2017","Mtoe":Renewable[RenewableIndex].a2017 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2018","Mtoe":Renewable[RenewableIndex].a2018 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2019","Mtoe":Renewable[RenewableIndex].a2019 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2020","Mtoe":Renewable[RenewableIndex].a2020 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2021","Mtoe":Renewable[RenewableIndex].a2021 },
+              { "Factors":Renewable[RenewableIndex].Factors,"Year":"2022","Mtoe":Renewable[RenewableIndex].a2022 },
+            )
+        }
+
+
+        var myChart = new dimple.chart(svg, chartdata); 
+          myChart.setBounds(60, 15, 740, 400);
+       
+
+        var x = myChart.addTimeAxis("x", "Year", "%Y", "%Y");
+        x.timeInterval = 3;
+          
+        var y = myChart.addMeasureAxis("y", "Mtoe");
+        y.ticks = 6;
+
+        var s = myChart.addSeries("Factors", dimple.plot.line);
+        s.lineMarkers = false;
+        s.interpolation = "cardinal";
+        s.lineWeight = 3;
+          
+        myChart.addLegend(800, 20, 100, 300, "left");
+
+        myChart.draw(500);
+
+          
+      });
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Usage and Renewable Energy</title>
+    <link rel="stylesheet" type="text/css" href="sty123.css">
+</head>
+<body>
+    <!-- Floating menu for navigation -->
+    <div class="floating-menu">
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#energy">Energy Usage</a></li>
+            <li><a href="#heat">Heating</a></li>
+            <li><a href="#transport">Transport</a></li>
+            <li><a href="#renewable_1">Renewable Energy</a></li>
+            <li><a href="#renewable2">Renewable Energy(%)</a></li>
+            <li><a href="#discussion">Discussion</a></li>
+            <li><a href="#ref">Reference</a></li>
+        </ul>
+    </div>
+
+    <div class="container1">
+        <div class="section intro" id="title">
+            <div class="text">
+                <h2>Net Zero Emission Target</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section intro" id="intro">
+            <div class="text">
+                <h2>Introduction</h2>
+                <p>In June 2019, the UK government legislated a net zero emissions target by 2050. In 2021, the government set two additional interim targets to run a net zero power system and reduce emissions by 78% by 2035.</p>
+            </div>
+            <img src="image1.jpg" alt="Introduction Image">
+        </div>
+
+        <div class="section" id="energy">
+            <div class="text">
+                <h2>Energy Usage (by gas and electricity)</h2>
+                <p>Details about energy usage, focusing on gas and electricity.</p>
+            </div>
+            <iframe src="map.html"></iframe>
+        </div>
+
+        <div class="section" id="heat">
+            <div class="text">
+                <h2>Consumption Focus (Heating + Transport)</h2>
+                <p>Information about energy consumption focusing on heating and transport.</p>
+            </div>
+            <iframe src="heat.html"></iframe>
+        </div>
+
+        <div class="section" id="transport">
+            <div class="text">
+                <h2>Transport Energy Consumption</h2>
+                <p>Information about transport energy consumption patterns in the UK.</p>
+                <p>The main energy source of the UK transports is Petroleum.</p>
+            </div>
+            <iframe src="trans.html"></iframe>
+        </div>
+
+        <div class="section" id="renewable_1">
+            <div class="text">
+                <h2>Renewable Energy Usage Patterns</h2>
+                <p>An overview of renewable energy usage patterns and their benefits.</p>
+            </div>
+            <iframe src="Renewable energy.html"></iframe>
+        </div>
+        
+        <div class="section" id="renewable2">
+            <div class="text">
+                <h2>Renewable Percentage of the UK</h2>
+                <p>An overview of the percentage of renewable energy in the UK's total energy consumption.</p>
+            </div>
+            <iframe src="renewable_percentage.html"></iframe>
+        </div>
+
+        <div class="section discussion" id="discussion">
+            <div class="text">
+                <h2>Discussion</h2>
+                <p>Currently: The UK's Zero Net Emissions policy got off to a late start, but some changes can be seen after the policy was published (from 2019).</p>
+                <p>Electricity generated from renewable energy has grown steadily, but other factors have not developed as much. Overall, there is still a long way from the target.</p>
+                <p>Advice: increased use of electrical transport, popularize more efficient heaters, use more thermally friendly building materials.</p>
+            </div>
+            <img src="image5.jpg" alt="Discussion Image">
+        </div>
+        
+        <div class="section ref" id="ref">
+            <div class="text">
+                <h2>Reference</h2>
+                <p>All data are mainly from the government of the UK</p>
+            </div>
+        </div>
+    </div>
+
+         <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuItems = document.querySelectorAll('.floating-menu a');
+            const sections = [];
+
+            menuItems.forEach(item => {
+                const section = document.querySelector(item.getAttribute('href'));
+                if (section) {
+                    sections.push({
+                        id: item.getAttribute('href'),
+                        offsetTop: section.offsetTop,
+                        height: section.offsetHeight
+                    });
+                }
+            });
+
+            const highlightMenu = () => {
+                let currentScrollPosition = window.pageYOffset + window.innerHeight / 2;
+
+                sections.forEach(section => {
+                    if (currentScrollPosition >= section.offsetTop && currentScrollPosition < section.offsetTop + section.height) {
+                        document.querySelectorAll('.floating-menu a').forEach(a => {
+                            a.style.backgroundColor = (a.getAttribute('href') === section.id) ? 'white' : 'transparent';
+                            a.style.color = (a.getAttribute('href') === section.id) ? 'black' : 'white';
+                        });
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', highlightMenu);
+            window.addEventListener('load', highlightMenu);
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const targetId = item.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                        // Manually highlight the clicked menu item
+                        menuItems.forEach(a => {
+                            a.style.backgroundColor = (a === item) ? 'white' : 'transparent';
+                            a.style.color = (a === item) ? 'black' : 'white';
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

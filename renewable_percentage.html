@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>World City Populations Chart 1950-2035</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+<script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.3.0/dimple.latest.min.js"></script>
+
+<style>    
+    #chartContainer {width: 840px; margin: auto; margin-top: 50px; }
+    #chartContainer p {margin-left: 60px; margin-bottom: 5px; margin-top: 0; padding: 0;}
+    #charttitle {font: bold 22px  Verdana, sans-serif;}
+</style>
+
+</head>
+
+    
+<body>
+
+<div id="chartContainer">
+      
+    <p id="charttitle">Renewable Energy Consumption in Percentage</p>
+    <p id="chartsubhead">Data from 2010-2022. From GOV.UK.</p>
+
+</div>
+
+
+<script>
+
+      d3.csv("renewable_percentage.csv", function(RenewablePercentage) {
+        
+
+        var RenewablePercentageIndex = 1;
+        console.log(RenewablePercentage[0]);
+        document.getElementById("charttitle").innerHTML = "Renewable Energy Consumption in Percentage";
+
+          
+        var svg = dimple.newSvg("#chartContainer", 1000, 640);
+       
+        var chartdata = [];
+          
+        for (let RenewablePercentageIndex=0; RenewablePercentageIndex < 4; RenewablePercentageIndex++) {
+            var name = RenewablePercentage[RenewablePercentageIndex].Factors;
+            console.log(name);
+            chartdata.push(
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2010","Percentage":RenewablePercentage[RenewablePercentageIndex].a2010 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2011","Percentage":RenewablePercentage[RenewablePercentageIndex].a2011 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2012","Percentage":RenewablePercentage[RenewablePercentageIndex].a2012 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2013","Percentage":RenewablePercentage[RenewablePercentageIndex].a2013 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2014","Percentage":RenewablePercentage[RenewablePercentageIndex].a2014 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2015","Percentage":RenewablePercentage[RenewablePercentageIndex].a2015 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2016","Percentage":RenewablePercentage[RenewablePercentageIndex].a2016 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2017","Percentage":RenewablePercentage[RenewablePercentageIndex].a2017 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2018","Percentage":RenewablePercentage[RenewablePercentageIndex].a2018 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2019","Percentage":RenewablePercentage[RenewablePercentageIndex].a2019 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2020","Percentage":RenewablePercentage[RenewablePercentageIndex].a2020 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2021","Percentage":RenewablePercentage[RenewablePercentageIndex].a2021 },
+              { "Factors":RenewablePercentage[RenewablePercentageIndex].Factors,"Year":"2022","Percentage":RenewablePercentage[RenewablePercentageIndex].a2022 },
+            )
+        }
+
+
+        var myChart = new dimple.chart(svg, chartdata); 
+        myChart.setBounds(60, 15, 700, 460);
+
+        var x = myChart.addTimeAxis("x", "Year", "%Y", "%Y");
+        x.timeInterval = 3;
+          
+        var y = myChart.addMeasureAxis("y", "Percentage");
+        y.ticks = 6;
+
+        var s = myChart.addSeries("Factors", dimple.plot.line);
+        s.lineMarkers = false;
+        s.interpolation = "cardinal";
+        s.lineWeight = 3;
+          
+        myChart.addLegend(800, 20, 100, 300, "left");
+
+        myChart.draw(500);
+
+          
+      });
+
+
+</script>
+    
+    <script>
+    function resizeIframe() {
+        var iframe = window.frameElement;
+        iframe.style.height = document.body.scrollHeight + 'px';
+    }
+    window.onload = resizeIframe;
+    window.onresize = resizeIframe;
+</script>
+
+
+</body>
+</html>

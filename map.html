@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Consumption Map</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        .map-overlay .title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .map-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            max-width: 250px;
+            z-index: 1; 
+        }
+        .map-overlay label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .legend {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 12px;
+            color: #333;
+            line-height: 20px;
+            width: 180px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+        .legend h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .color-boxes {
+            display: flex;
+            width: 100%;
+            height: 18px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .color-box {
+            flex: 1;
+        }
+        .color-label-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .interval-description {
+            text-align: center;
+            margin-top: 8px;
+        }
+        .color-label {
+            font-size: 12px;
+        }
+        .map-tooltip {
+            position: absolute;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            font-size: 12px;
+            color: #333;
+            z-index: 2; 
+            display: none; 
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            margin: 8px 0;
+            padding: 0;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8.4px;
+            cursor: pointer;
+            animate: 0.2s;
+            background: #0074D9;
+            border-radius: 1.3px;
+            box-shadow: 0px 0px 1px #000000;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            border: 1px solid #0074D9;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px;
+            box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+        }
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #0074D9;
+        }
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 8.4px;
+            cursor: pointer;
+            animate: 0.2s;
+            background: #0074D9;
+            border-radius: 1.3px;
+            box-shadow: 0px 0px 1px #000000;
+        }
+        input[type=range]::-moz-range-thumb {
+            border: 1px solid #0074D9;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+        }
+        input[type=range]::-ms-track {
+            width: 100%;
+            height: 8.4px;
+            cursor: pointer;
+            animate: 0.2s;
+            background: transparent;
+            border-color: transparent;
+            color: transparent;
+        }
+        input[type=range]::-ms-fill-lower {
+            background: #0074D9;
+            border: 0.2px solid #000000;
+            border-radius: 2.6px;
+            box-shadow: 0px 0px 1px #000000;
+        }
+        input[type=range]::-ms-fill-upper {
+            background: #0074D9;
+            border: 0.2px solid #000000;
+            border-radius: 2.6px;
+            box-shadow: 0px 0px 1px #000000;
+        }
+        input[type=range]::-ms-thumb {
+            border: 1px solid #0074D9;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+            margin-top: 0px;
+        }
+        input[type=range]:focus::-ms-fill-lower {
+            background: #0074D9;
+        }
+        input[type=range]:focus::-ms-fill-upper {
+            background: #0074D9;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div class="map-overlay">
+    <div class="title">Energy Usage (sum of gas and electricity) from 2010 to 2022</div>
+    <label for="yearSlider">Year: <span id="yearLabel">2010</span></label>
+    <input type="range" id="yearSlider" min="2010" max="2022" step="1" value="2010">
+    <div id="legend" class="legend">
+        <h4>Legend</h4>
+        <div class="color-boxes"></div>
+        <div class="color-label-container">
+            <div>0 kWh</div>
+            <div>50000 kWh</div>
+        </div>
+        <div class="interval-description"></div>
+    </div>
+</div>
+<div id="map-tooltip" class="map-tooltip"></div>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoieXV4eGkiLCJhIjoiY2xyN3I3dzlnMHFxMzJrcDQyaXp6dnR2diJ9.dQ-x68CMoSyi9XlPbo0g2g';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/yuxxi/clw3e2voi025b01o08l1o6xaj',
+        center: [-0.1, 51.5],
+        zoom: 7,
+        minZoom: 7,
+        maxZoom: 12,
+    });
+
+    let currentYear = '2010'; 
+
+    map.on('load', function() {
+        map.addSource('energyData', {
+            type: 'vector',
+            url: 'mapbox://yuxxi.30qbly2x'
+        });
+
+        const values = [0, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 22500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000];
+        const colors = ['#003366', '#004080', '#004d99', '#0059b3', '#0066cc', '#0073e6', '#3385ff', '#6699ff', '#99ccff', '#cce6ff', '#e0b3ff', '#d180ff', '#c24dff', '#b31aff', '#a300ff', '#9300e6', '#8300cc', '#7300b3', '#620099', '#520080', '#410066'];
+
+        for (let year = 2010; year <= 2022; year++) {
+            let layerId = 'combined-' + year;
+            map.addLayer({
+                id: layerId,
+                type: 'fill',
+                source: 'energyData',
+                'source-layer': 'final-6lhfkk',
+                paint: {
+                    'fill-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['+', ['get', 'g_' + year], ['get', 'e_' + year]], 
+                        ...values.flatMap((value, index) => [value, colors[index]])
+                    ],
+                    'fill-opacity': 0.75
+                },
+                layout: {
+                    visibility: year === 2010 ? 'visible' : 'none' 
+                }
+            });
+        }
+
+        updateTooltipListeners(currentYear); 
+        updateLegend(values, colors, values[1] - values[0]); 
+    });
+
+    document.getElementById('yearSlider').oninput = debounce(function() {
+        document.getElementById('yearLabel').textContent = this.value;
+        currentYear = this.value;
+        toggleLayer(currentYear);
+    }, 100); 
+
+    function toggleLayer(selectedYear) {
+        map.getStyle().layers.forEach(layer => {
+            if (layer.id.startsWith('combined-')) {
+                map.setLayoutProperty(layer.id, 'visibility', 'none');
+            }
+        });
+        map.setLayoutProperty('combined-' + selectedYear, 'visibility', 'visible');
+        updateTooltipListeners(selectedYear);
+    }
+
+    function updateTooltipListeners(year) {
+        map.off('mousemove', handleMouseMove);
+        map.off('mouseleave', handleMouseLeave);
+        map.off('mouseenter', handleMouseEnter);
+
+        map.on('mousemove', 'combined-' + year, handleMouseMove);
+        map.on('mouseleave', 'combined-' + year, handleMouseLeave);
+        map.on('mouseenter', 'combined-' + year, handleMouseEnter);
+    }
+
+    function updateLegend(values, colors, interval) {
+        const colorBoxes = document.querySelector('.color-boxes');
+        const intervalDescription = document.querySelector('.interval-description');
+        colorBoxes.innerHTML = '';
+        intervalDescription.innerHTML = `Each color represents an interval of ${interval} kWh`;
+
+        colors.forEach(color => {
+            const box = document.createElement('div');
+            box.className = 'color-box';
+            box.style.backgroundColor = color;
+            colorBoxes.appendChild(box);
+        });
+    }
+
+   
+    function debounce(func, wait) {
+        let timeout;
+        return function() {
+            const context = this, args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), wait);
+        };
+    }
+
+    var tooltip = document.getElementById('map-tooltip');
+    function handleMouseMove(e) {
+        const year = document.getElementById('yearSlider').value;
+        const properties = e.features[0].properties;
+  
+        const gas = properties['g_' + year].toFixed(4); 
+        const electricity = properties['e_' + year].toFixed(4); 
+        const msoa = properties['msoa11nm']; 
+    
+        tooltip.innerHTML = `<strong>${msoa}</strong><br><strong>Year: ${year}</strong><br>Gas: ${gas} kWh<br>Electricity: ${electricity} kWh`;
+        tooltip.style.display = 'block';
+        tooltip.style.left = e.point.x + 10 + 'px';
+        tooltip.style.top = e.point.y + 10 + 'px';
+    }
+
+
+    function handleMouseLeave() {
+        tooltip.style.display = 'none';
+    }
+
+    function handleMouseEnter() {
+        map.getCanvas().style.cursor = 'pointer';
+    }
+
+    map.on('mousemove', 'combined-2010', handleMouseMove);
+    map.on('mouseleave', 'combined-2010', handleMouseLeave);
+    map.on('mouseenter', 'combined-2010', handleMouseEnter);
+</script>
+</body>
+</html>

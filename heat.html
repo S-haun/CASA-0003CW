@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Energy Consumption Visualization</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style>
+        #chartContainerWhole { width: 100%; max-width: 840px; margin: auto; margin-top: 100px; }
+        #chartContainer p { margin-left: 60px; margin-bottom: 10px; margin-top: 0; padding: 0; }
+        #charttitle { font: bold 22px Verdana, sans-serif; }
+        .tooltip {
+            position: absolute;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="chartContainerWhole">
+        <p id="charttitle">Energy Consumption in Heating</p>
+        <p id="chartsubhead">Energy consumption by end use 1990, 2000, and 2010 to 2020</p>
+        <div id="energy_viz" style="width:100%; height:auto;"></div>
+        <div class="tooltip"></div>
+    </div>
+    
+    <script>
+        var containerWidth = parseInt(d3.select("#chartContainerWhole").style("width")),
+            margin = {top: 20, right: 20, bottom: 50, left: 60},
+            width = containerWidth - margin.left - margin.right,
+            height = 640 - margin.top - margin.bottom;
+
+        var svg = d3.select("#energy_viz").append("svg")
+            .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .style("display", "block")
+            .style("width", "100%")
+            .style("height", "auto")
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        d3.csv("heating.csv", function(data) {
+            data.sort((a, b) => a.Year - b.Year);
+            var allGroups = data.columns.slice(1);
+            var subgroups = allGroups.filter(g => g !== "Total");
+
+            var stackedData = d3.stack().keys(subgroups)(data);
+
+            var x = d3.scaleBand()
+                .domain(data.map(d => d.Year))
+                .range([0, width])
+                .padding(0.2);
+
+            var y = d3.scaleLinear()
+                .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1]))])
+                .range([height, 0]);
+
+            var color = d3.scaleOrdinal()
+                .domain(subgroups)
+                .range(['#7fc7eb', '#ffcc66', 'rgba(76, 175, 80, 0.5)']);
+
+            svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x).tickSizeOuter(0));
+            svg.append("g").call(d3.axisLeft(y));
+
+            // Add x-axis label
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("x", width / 2)
+                .attr("y", height + margin.bottom - 10)
+                .text("Year")
+                .style("font-size", "16px");
+            
+            // Add y-axis label
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("transform", "translate(" + -40 + "," + (height / 2) + ")rotate(-90)")
+                .text("Energy Consumption (kWh)")
+                .style("font-size", "12px");
+
+            // Render bars
+            svg.append("g").selectAll("g")
+                .data(stackedData).enter().append("g")
+                .attr("fill", d => color(d.key))
+                .selectAll("rect")
+                .data(d => d).enter().append("rect")
+                .attr("x", d => x(d.data.Year))
+                .attr("y", d => y(d[1]))
+                .attr("height", d => y(d[0]) - y(d[1]))
+                .attr("width", x.bandwidth())
+                .on("mouseover", function(d) {
+                    d3.select(".tooltip").html(d[1] - d[0])
+                        .classed("show", true)
+                        .style("left", (d3.event.pageX + 10) + "px")
+                        .style("top", (d3.event.pageY - 15) + "px");
+                })
+                .on("mouseout", function() {
+                    d3.select(".tooltip").classed("show", false);
+                });
+
+            // Add legend
+            var legend = svg.selectAll(".legend")
+                .data(subgroups).enter().append("g")
+                .attr("class", "legend")
+                .attr("transform", (d, i) => "translate(0," + i * 20 + ")");
+            legend.append("rect")
+                .attr("x", width - 18)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", color);
+            legend.append("text")
+                .attr("x", width - 24)
+                .attr("y", 9)
+                .attr("dy", ".35em")
+                .style("text-anchor", "end")
+                .text(d => d);
+        });
+
+        // Adjust the height of the iframe if this page is embedded in an iframe
+        function resizeIframe() {
+            var iframe = window.frameElement;
+            if (iframe) {
+                iframe.style.height = document.body.scrollHeight + 'px';
+            }
+        }
+
+        window.onload = resizeIframe;
+        window.onresize = resizeIframe;
+    </script>
+</body>
+</html>
+

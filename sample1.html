@@ -1,0 +1,688 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Report</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f4f4f4;
+        text-align: center;
+    }
+    
+    #cover-page h1 {
+        font-size: 3em;
+        margin: 0;
+    }
+    
+    #cover-page p {
+        font-size: 1.5em;
+        margin: 0.5em 0;
+    }
+    
+    #cover-page button {
+        padding: 0.5em 1em;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    
+    #navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #333;
+        color: #fff;
+        z-index: 1000;
+        transition: background 0.3s, padding 0.3s;
+    }
+    
+    #navbar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+    
+    #navbar ul li {
+        margin: 0;
+    }
+    
+    #navbar ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 1em;
+        display: block;
+        transition: background 0.3s;
+    }
+    
+    #navbar ul li a:hover, #navbar ul li a.active {
+        background: #575757;
+    }
+    
+    #content {
+        padding-top: 60px; /* Height of the navbar */
+    }
+    
+    section {
+        padding: 2em;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #introduction {
+        background-color: #f9f9f9; /* Light gray background for the Introduction section */
+    }
+
+    #energy-usage {
+        background-color: #e8f7ff; /* Light blue background for the Energy Usage section */
+    }
+
+    #consumption-focus {
+        background-color: #fddcbd; /* Light orange background for the Consumption Focus section */
+    }
+
+    #renewable-energy {
+        background-color: #e6f7f3; /* Light green background for the Renewable Energy section */
+    }
+
+    #discussion {
+        background-color: #f9f6e0; /* Light yellow background for the Discussion section */
+    }
+
+    #conclusion {
+        background-color: #f4e9f2; /* Light purple background for the Conclusion section */
+    }
+
+    #references {
+        background-color: #f0f8ff; /* Light blue background for the References section */
+    }
+    
+    .iframe-container {
+        margin: 2em 0;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    }
+    
+    .iframe-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    #navbar.scrolled {
+        background: #222;
+        padding: 0.5em;
+    }
+    </style>
+    
+</head>
+<body>
+
+    <div id="cover-page">
+        <h1>Energy Report</h1>
+        <p>by [Your Name]</p>
+        <button onclick="navigateTo('introduction')">Enter</button>
+    </div>
+
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#energy-usage">Energy Usage</a></li>
+            <li><a href="#consumption-focus">Consumption Focus</a></li>
+            <li><a href="#renewable-energy">Renewable Energy</a></li>
+            <li><a href="#discussion">Discussion</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+    </nav>
+
+
+    <div id="content">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Your introduction content goes here...</p>
+        </section>
+        
+        <section id="energy-usage">
+            <h2>Energy and Gas Usage Through 2010-2022</h2>
+            <div class="iframe-container">
+                <iframe src="map.html"></iframe>
+            </div>
+        </section>
+
+        <section id="consumption-focus">
+            <h2>Heat Energy of the UK</h2>
+            <div class="iframe-container">
+                <iframe src="heat.html"></iframe>
+            </div>
+            
+            <h2>Transport Energy Consumption of the UK</h2>
+            <div class="iframe-container">
+                <iframe src="trans.html"></iframe>
+            </div>
+        </section>
+
+        <section id="renewable-energy">
+            <h2>Renewable Energy of the UK</h2>
+            <div class="iframe-container">
+                <iframe src="Renewable energy.html"></iframe>
+            </div>
+            
+            <h2>Renewable Percentage of the UK</h2>
+            <div class="iframe-container">
+                <iframe src="renewable_percentage.html"></iframe>
+            </div>
+        </section>
+
+        <section id="discussion">
+            <h2>Discussion and Limitation</h2>
+            <p>
+                Discussion
+
+                According to the UK energy consumption data from 2010 to 2022, there is a general downward trend in gas and electricity consumption, especially in 2022, which may be related to lifestyle changes after the pandemic and the government's net-zero emissions policy. Regarding heating energy consumption, industrial energy consumption fluctuates considerably; the service sector is relatively stable. In contrast, domestic energy consumption declined slightly, indicating that there is still room for improvement in optimising the domestic heating structure. Transportation energy consumption is dominated by petroleum, and coal use has gradually declined since 2010, with an increase in the use of clean energy. This aligns with the UK Government's 'Road to Zero' strategy, launched in 2018, and contributes to the net-zero emissions target. While renewable energy use in the electricity sector has increased significantly, the heat and transport sectors have seen lower growth rates. By 2022, about 70% of renewable energy will be used for electricity generation, while only 15% and 10% will be used for heat and transportation. The share of renewables in total energy consumption has risen but is still insufficient to meet carbon neutrality targets.
+                These findings suggest that while the UK has made progress in its energy consumption and transition, there are still many challenges to achieving the net-zero emissions target. Policymakers need to focus on the specific needs of different sectors to further promote the use of renewable energy, optimise the energy mix, and achieve sustainable development.
+                However, more than simply increasing the use of renewable energy is needed to achieve net-zero goals. Improving energy efficiency and changing user behaviour are also critical. According to an analysis by the International Energy Agency (IEA), energy efficiency can contribute to up to 40% emission reductions. In addition, digital technologies are transforming the energy sector, improving system efficiency and flexibility. The UK government can promote these smart devices by setting standards, regulations and incentives to improve energy efficiency significantly.
+                Socioeconomic factors and policy incentives, public acceptance of renewable energy, energy price volatility, government subsidies, and tax policies can all influence the energy transition process. For example, China and India have demonstrated in recent years that policy can be essential in improving energy efficiency by strengthening industrial energy efficiency policies and introducing energy conservation laws.
+                In addition, reducing energy demand is a key factor in achieving net-zero goals. Reducing energy demand not only helps to reduce the technical challenges and overall investment requirements for system expansion but also provides flexibility and further increases ambition to meet climate goals. Reducing energy demand can lead to significant emission reductions in the short term, especially in hard-to-reduce sectors such as steel production, aviation and agriculture.
+                International cooperation is also critical to achieving global energy goals. By sharing technology, policy experience, and financial support, the world can achieve sustainable energy goals faster. The United Kingdom can play an important role in promoting global energy cooperation for sustainable development.
+                
+                
+                Limitation
+
+                Although the whole project aims to show the data directly to help the audience understand our topic, further improvements could still be made.
+                Firstly, renewable energy maps could be added to compare to total consumption. This could show the renewable energy consumption or production in different areas (MSOA in this case) and whether those areas with high energy consumption in the last two decades have changed their energy consumption patterns. That figure will show this, allowing the government to make targeted policies. However, we have to give up this decision because renewable energy was recorded at a national level but not in MSOA by spatial data.
+                Secondly, although energy consumption and renewables usage are revealed, we can only provide suggestions from the overview of the UK. In other words, the potential policies that lead to improvements could be biased in some places with particular circumstances. For instance, as a massive city with a high GDP, London could have enough funds to promote the usage of thermal-friendly materials. However, for cities in remote areas, the technology and government budgets might not be able to support them in promoting such a significant infrastructure refurbishment.
+                Last but not least, noise factors do exist in this report. The main factors are the COVID-19 pandemic and lockdown. From the previous analysis, it could be found that energy consumption experienced a significant fall in 2020, which is the year that COVID-19 happened. Due to the pandemic and lockdown policies, many industrial factories closed, and the amount of transport was reduced. This leads to a reduction in carbon emissions, which might be a good phenomenon on the way to Net Zero Target, while it almost has nothing to do with renewable energy promotion. As a result, the current carbon emission pattern might not be solely caused by renewable energy consumption, which could cause the accuracy of this project report.
+                
+                </p>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>In conclusion, after looking into these data, we can answer our research questions:
+                Progress and gaps in achieving the goal of net zero emissions: According to Bisdounis (2023), the UK's Zero Net Emissions policy started late in 2019. Still, some changes can be seen after the policy was published: gas and electricity show a downward trend and renewable energy usage keeps increasing. Electricity is the factor that got the largest improvement. The electricity generated from renewable energy has grown steadily over the last two decades, but other factors, including heating and transport, have not developed as much. This could indicate that most heating facilities and transport tools in households still use traditional energy sources such as fossil fuel, leading to large amounts of carbon emissions. Meanwhile, although the Mtoe of total renewable energy has increased, the percentage of renewables only increased slightly. Overall, there is still a long way to go from the target.
+                Possible suggestions: From a transport perspective, the government could encourage citizens to increase their use of electrical transport, such as electric cars or e-scooters; from the heating perspective, more efficient heaters could be popularised in current housing; and, at the same time, for those structures in progress, more thermally friendly building materials could be applied to reduce the use of heaters.
+                </p>
+        </section>
+
+        <section id="references">
+            <h2>References</h2>
+            <p>
+                Department for Energy Security and Net Zero, & Department for Business, E. & I. S. (2021). Net Zero Strategy: Build Back Greener. https://www.gov.uk/government/publications/net-zero-strategy
+                Renewable energy datasets https://www.gov.uk/government/statistics/renewable-sources-of-energy-chapter-6-digest-of-united-kingdom-energy-statistics-dukes
+                Lampros Bisdounis (2023). Net zero transformation: Industry and Regulators Committee report. Accessed at: https://lordslibrary.parliament.uk/net-zero-transformation-industry-and-regulators-committee-report/
+                Energy Systems Catapult (2023) COVID-19 impact on domestic energy consumption. Energy Systems Catapult. Available at: https://es.catapult.org.uk/insight/covid-impact-on-domestic-energy-consumption/ (Accessed: 14 October 2023).
+                Department for Business, Energy & Industrial Strategy (2022) Energy Consumption in the UK 2022. Available at: https://assets.publishing.service.gov.uk/media/634684bed3bf7f6183b8570c/Energy_Consumption_in_the_UK_2022_10102022.pdf (Accessed: 17 May 2024).</p>
+        </section>
+    </div>
+
+    <script>
+        function navigateTo(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navbarLinks = document.querySelectorAll('#navbar ul li a');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 60; 
+                if (pageYOffset >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navbarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.querySelectorAll('#navbar ul li a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('#navbar ul li a').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Report</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #cover-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f4f4f4;
+        text-align: center;
+    }
+    
+    #cover-page h1 {
+        font-size: 3em;
+        margin: 0;
+    }
+    
+    #cover-page p {
+        font-size: 1.5em;
+        margin: 0.5em 0;
+    }
+    
+    #cover-page button {
+        padding: 0.5em 1em;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    
+    #navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #333;
+        color: #fff;
+        z-index: 1000;
+        transition: background 0.3s, padding 0.3s;
+    }
+    
+    #navbar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+    
+    #navbar ul li {
+        margin: 0;
+    }
+    
+    #navbar ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 1em;
+        display: block;
+        transition: background 0.3s;
+    }
+    
+    #navbar ul li a:hover, #navbar ul li a.active {
+        background: #575757;
+    }
+    
+    #content {
+        padding-top: 60px; /* Height of the navbar */
+    }
+    
+    section {
+        padding: 2em;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #introduction {
+        background-color: #f9f9f9; /* Light gray background for the Introduction section */
+    }
+
+    #energy-usage {
+        background-color: #e8f7ff; /* Light blue background for the Energy Usage section */
+    }
+
+    #consumption-focus {
+        background-color: #fddcbd; /* Light orange background for the Consumption Focus section */
+    }
+
+    #renewable-energy {
+        background-color: #e6f7f3; /* Light green background for the Renewable Energy section */
+    }
+
+    #discussion {
+        background-color: #f9f6e0; /* Light yellow background for the Discussion section */
+    }
+
+    #conclusion {
+        background-color: #f4e9f2; /* Light purple background for the Conclusion section */
+    }
+
+    #references {
+        background-color: #f0f8ff; /* Light blue background for the References section */
+    }
+    
+    .iframe-container {
+        margin: 2em 0;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    }
+    
+    .iframe-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    #navbar.scrolled {
+        background: #222;
+        padding: 0.5em;
+    }
+
+    .text-container {
+        margin: 1em 0;
+    }
+
+    </style>
+    
+</head>
+<body>
+
+    <div id="cover-page">
+        <h1>Energy Report</h1>
+        <p>by [Your Name]</p>
+        <button onclick="navigateTo('introduction')">Enter</button>
+    </div>
+
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#energy-usage">Energy Usage</a></li>
+            <li><a href="#consumption-focus">Consumption Focus</a></li>
+            <li><a href="#renewable-energy">Renewable Energy</a></li>
+            <li><a href="#discussion">Discussion</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+    </nav>
+
+
+    <div id="content">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>
+                Over the past decade, global climate change has become a growing concern for both the public and governments. The UK Government's commitment in June 2019 to a legislative target of net zero emissions by 2050 reflects the high level of interest in this issue. Net-zero emissions mean balancing the amount of greenhouse gases emitted into the atmosphere and the equivalent amount of greenhouse gases removed or offset, reducing net emissions to zero. In addition, the government has set two interim targets for 2021: to operate a net-zero emissions power system and to reduce emissions by 78 % by 2035. These targets call for significant reductions in emissions nationwide and specifically highlight the key role of urban areas in the green transition. As densely populated and industrialised places, the energy consumption patterns and greenhouse gas emissions of urban areas have a decisive impact on the carbon footprint of the entire country. Therefore, the study and implementation of sustainable development strategies at the urban level are critical to achieving the goal of net-zero emissions.
+            </p>
+            <p>
+                The strong link between urban futures and net-zero emission policies is evident as cities are major centres of economic activity, energy consumption, and technological innovation. Their development path directly influences the effectiveness of strategies to combat climate change. The UK's main sources of energy consumption include transportation, residential and commercial building heating, and industrial production. Transportation and heating are the primary sources of urban energy emissions and are consequently a priority for reducing emissions.
+            </p>
+            <p>
+                To address these major sources of emissions, the Government has taken various measures, in particular, to increase the use of renewable energy, which is essential for environmental sustainability and indispensable for enhancing the country's energy security and improving the economic infrastructure.
+            </p>
+            <p>
+                To address these major sources of emissions, the Government has taken various measures, in particular, to increase the use of renewable energy, which is essential for environmental sustainability and indispensable for enhancing the country's energy security and improving the economic infrastructure.
+            </p>
+            <p>
+                This leads to the research questions:
+            </p>
+            <p>
+                1. What progress is the UK making towards the net zero emissions target from an urban perspective?
+            </p>
+            <p>
+                2. What are the gaps in current progress compared to the 2050 target?
+            </p>
+            <p>
+                3. What advice can be given based on the findings of this study?
+            </p>
+            <p>
+                By answering these questions, this analysis will reveal what has been achieved, identify challenges, and provide advice on setting future policy directions.
+            </p>
+        </section>
+        
+        <section id="energy-usage">
+            <h2>Energy and Gas Usage Through 2010-2022</h2>
+            <div class="iframe-container">
+                <iframe src="map.html"></iframe>
+            </div>
+            <div class="text-container">
+                <h3>
+                    Analysis
+                </h3>
+                <p>
+                    To analyse this visualisation, the most obvious changes in energy consumption happened in 2022, and the nationwide consumption dropped at least one level of colour. We assumed that the consumption did not obviously decrease because of the COVID lockdown. According to data from the Living Lab of Energy System Catapult (2024), although gas consumption dropped slightly,  electricity usage rose 26 per cent from 2019 to 2020. People are not fully engaged in fieldwork as they might have been in the past, so as we will demonstrate later, domestic heating consumption took up quite a large proportion of total heating usage. Minor reductions took place in some of the areas over the years, and in 2022, there is an obvious drop as the lockdown is almost completely over.
+                </p>
+                <p>
+                    The prominent decrease trend appearing in 2022 indicates that actions might have been taken to approach the net zero emission target the UK government legislated in 2019.
+                </p>
+            </div>
+        </section>
+
+        <section id="consumption-focus">
+            <h2>Heat Energy of the UK</h2>
+            <div class="iframe-container">
+                <iframe src="heat.html"></iframe>
+            </div>
+            <div class="text-container">
+                <h3>
+                    Analysis
+                </h3>
+                <p>To briefly introduce the layout of the stacked bar chart, the heating energy consumption each year on the plot is made of three parts: green bar for domestic usage, yellow for industrial use, and blue for domestic use, as introduced in the legend.  All heating consumption dropped a lot in 2010 and showed fluctuation between 2010 and 2014 with a decreasing trend. After 2015, the consumption rose by approximately 15,000 kWh mainly because of the changes in the industrial area, as service usage is relatively stable, and domestic usage slightly showed a decrease, fluctuating again for the following five years with a dropping trend.
+                </p>
+                <p>Heating energy kept changing, with no obvious decreasing trend between 2010 and 2020. Although heating consumption in the service area is rather stable, industrial usage fluctuates a lot because of special needs in specific years. However, industrial consumption can be essential depending on the overall consideration for the development of the U.K. Hence, optimising the domestic heating structure is vital for the government to approach the net zero emission target. However, according to the UK government release (2022) in 2022, heating energy use is still increasing from 2020 to 2021 for all three areas by 4.6 per cent in total, which should raise certain awareness.
+                </p>
+            </div>
+            
+            <h2>Transport Energy Consumption of the UK</h2>
+            
+            <div class="iframe-container">
+                <iframe src="trans.html"></iframe>
+            </div>
+
+            <div class="text-container">
+                <p>The third visualisation focuses on transportation energy consumption data from 2010 to 2022. An important issue arose in creating the stacked bar charts: petroleum, widely used for transportation, dominates the chart, far overshadowing the other energy types. Except for bioenergy and waste, the contribution of other energy types is barely visible, and even trends in bioenergy and waste are difficult to discern. Given the importance of analysing overall energy use, an interactive feature is integrated into the visualisation system. 
+                </p>
+                <h3>
+                    Analysis
+                </h3>
+                <p>
+                    Petroleum continues to be the main source of energy for transportation in the UK, with a general upward trend in its use. This is likely due to the unavoidable increase in transportation demand as a result of economic growth.
+
+                </p>
+                <p>
+                    In addition, energy consumption sharply declined in 2020, likely due to the closures reducing transport use. After COVID, energy use steadily progressed as the transport system began to recover.
+                </p>
+                <p>
+                    However, there have been some positive developments as a result of this situation. Coal use has declined since 2010, and clean/new energy adoption has grown steadily since then, rising sharply in 2018. This growth coincides with the UK government's 'Road to Zero' strategy, launched in 2018, which aims to reduce road traffic emissions and transition to zero-emission vehicles. This strategy appears to be progressing well and is critical to the UK's ambition to achieve its net-zero emissions target. Notably, natural gas has been attempted to be introduced as a new energy source after 2018, which further supports the shift to clean energy.
+
+                </p>
+            </div>
+
+        </section>
+
+        <section id="renewable-energy">
+
+            <h2>Renewable Energy of the UK</h2>
+            
+            <div class="iframe-container">
+                <iframe src="Renewable energy.html"></iframe>
+            </div>
+           
+            <div class="text-container">
+                <h3>
+                    Analysis
+                </h3>
+                <p>
+                    The first chart shows that overall renewable energy significantly rose during the last two decades. So does the renewable energy used for electricity. However, the amount of renewable energy used in heating and transport only experienced a slight increase or almost the same. All of these characteristics can be directly shown on the chart and allow the audience to understand them at first sight, which proves the effectiveness of the line chart choice.
+
+                </p>
+                <p>
+                    On the other hand, further information could be revealed when observing the chart from another perspective. When we focus on the renewable energy pattern in each year other than in each factor, it can be found that electricity was the main usage of renewable energy: especially in 2021 and 2022, around 70% of renewable energy was used for electricity. In comparison, heating only accounted for 15% and transport accounted for 10% of the total renewable energy use. This could show that most heating and transport companies are still using traditional energy sources such as coal or petroleum, leading to considerable carbon emissions and greatly delaying the time that the Net Zero Target is realised.
+
+                </p>
+            </div>
+
+            <h2>Renewable Percentage of the UK</h2>
+
+            <div class="iframe-container">
+                <iframe src="renewable_percentage.html"></iframe>
+            </div>
+            <div class="text-container">
+                <h3>
+                    Analysis
+                </h3>
+                <p>Although the rapid growth of total renewable energy usage could be inspiring, the real concern for carbon neutralisation should be what proportion of renewable energy accounts for the total energy consumption since carbon neutralisation will not be achieved until the total carbon emission is reduced to the level that it could be completely absorbed by nature. In other words, renewable energy should account for a high enough share to realise the target. As a result, the second chart was designed to exhibit the renewables’ shares.</p>
+                <p>
+                This chart shows the percentage of renewable energy consumption. It clearly shows that the percentage of electricity consumption used for renewable energy still has increased from 7% in 2010 to 42% in 2022. However, figures for heating, transport and overall use experienced a relatively slow growth. Here, ‘Total consumption’ refers to the proportion of renewable energy in the overall energy consumption. Although the share of renewable energy in total consumption rose from 4% in 2012 to 14% in 2022, there is still a long way for the UK to reduce enough carbon emissions to realise carbon neutralisation   
+                </p>
+            </div>
+        </section>
+
+        <section id="discussion">
+            <h2>Discussion and Limitation</h2>
+            <p>
+                According to the UK energy consumption data from 2010 to 2022, there is a general downward trend in gas and electricity consumption, especially in 2022, which may be related to lifestyle changes after the pandemic and the government's net-zero emissions policy.
+            </p>
+            <p>
+                Regarding heating energy consumption, industrial energy consumption fluctuates considerably; the service sector is relatively stable. In contrast, domestic energy consumption declined slightly, indicating that there is still room for improvement in optimising the domestic heating structure. Transportation energy consumption is dominated by petroleum, and coal use has gradually declined since 2010, with an increase in the use of clean energy. This aligns with the UK Government's 'Road to Zero' strategy, launched in 2018, and contributes to the net-zero emissions target.
+            </p>
+            <p>
+                While renewable energy use in the electricity sector has increased significantly, the heat and transport sectors have seen lower growth rates. By 2022, about 70% of renewable energy will be used for electricity generation, while only 15% and 10% will be used for heat and transportation. The share of renewables in total energy consumption has risen but is still insufficient to meet carbon neutrality targets.
+            </p>
+            <p>
+                These findings suggest that while the UK has made progress in its energy consumption and transition, there are still many challenges to achieving the net-zero emissions target. Policymakers need to focus on the specific needs of different sectors to further promote the use of renewable energy, optimise the energy mix, and achieve sustainable development.
+            </p>
+            <p>
+                However, more than simply increasing the use of renewable energy is needed to achieve net-zero goals. Improving energy efficiency and changing user behaviour are also critical. According to an analysis by the International Energy Agency (IEA), energy efficiency can contribute to up to 40% emission reductions. In addition, digital technologies are transforming the energy sector, improving system efficiency and flexibility. The UK government can promote these smart devices by setting standards, regulations and incentives to improve energy efficiency significantly.
+            </p>
+            <p>
+                Socioeconomic factors and policy incentives, public acceptance of renewable energy, energy price volatility, government subsidies, and tax policies can all influence the energy transition process. For example, China and India have demonstrated in recent years that policy can be essential in improving energy efficiency by strengthening industrial energy efficiency policies and introducing energy conservation laws.
+            </p>
+            <p>
+                In addition, reducing energy demand is a key factor in achieving net-zero goals. Reducing energy demand not only helps to reduce the technical challenges and overall investment requirements for system expansion but also provides flexibility and further increases ambition to meet climate goals. Reducing energy demand can lead to significant emission reductions in the short term, especially in hard-to-reduce sectors such as steel production, aviation and agriculture.
+            </p>
+            <p>
+                International cooperation is also critical to achieving global energy goals. By sharing technology, policy experience, and financial support, the world can achieve sustainable energy goals faster. The United Kingdom can play an important role in promoting global energy cooperation for sustainable development.
+            </p>
+  
+            <h3>Limitation</h3>
+
+            <p>
+                Although the whole project aims to show the data directly to help the audience understand our topic, further improvements could still be made.
+            </p>
+            <p>
+                Firstly, renewable energy maps could be added to compare to total consumption. This could show the renewable energy consumption or production in different areas (MSOA in this case) and whether those areas with high energy consumption in the last two decades have changed their energy consumption patterns. That figure will show this, allowing the government to make targeted policies. However, we have to give up this decision because renewable energy was recorded at a national level but not in MSOA by spatial data.
+            </p>
+            <p>
+                Secondly, although energy consumption and renewables usage are revealed, we can only provide suggestions from the overview of the UK. In other words, the potential policies that lead to improvements could be biased in some places with particular circumstances. For instance, as a massive city with a high GDP, London could have enough funds to promote the usage of thermal-friendly materials. However, for cities in remote areas, the technology and government budgets might not be able to support them in promoting such a significant infrastructure refurbishment.
+            </p>
+            <p>
+                Last but not least, noise factors do exist in this report. The main factors are the COVID-19 pandemic and lockdown. From the previous analysis, it could be found that energy consumption experienced a significant fall in 2020, which is the year that COVID-19 happened. Due to the pandemic and lockdown policies, many industrial factories closed, and the amount of transport was reduced. This leads to a reduction in carbon emissions, which might be a good phenomenon on the way to Net Zero Target, while it almost has nothing to do with renewable energy promotion. As a result, the current carbon emission pattern might not be solely caused by renewable energy consumption, which could cause the accuracy of this project report.
+            </p>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>
+                In conclusion, after looking into these data, we can answer our research questions:
+            </p>
+            <p>
+                Progress and gaps in achieving the goal of net zero emissions: According to Bisdounis (2023), the UK's Zero Net Emissions policy started late in 2019. Still, some changes can be seen after the policy was published: gas and electricity show a downward trend and renewable energy usage keeps increasing. Electricity is the factor that got the largest improvement. The electricity generated from renewable energy has grown steadily over the last two decades, but other factors, including heating and transport, have not developed as much. This could indicate that most heating facilities and transport tools in households still use traditional energy sources such as fossil fuel, leading to large amounts of carbon emissions. Meanwhile, although the Mtoe of total renewable energy has increased, the percentage of renewables only increased slightly. Overall, there is still a long way to go from the target.
+            </p>
+            <p>
+                Possible suggestions: From a transport perspective, the government could encourage citizens to increase their use of electrical transport, such as electric cars or e-scooters; from the heating perspective, more efficient heaters could be popularised in current housing; and, at the same time, for those structures in progress, more thermally friendly building materials could be applied to reduce the use of heaters.
+            </p>
+        </section>
+
+        <section id="references">
+            <h2>References</h2>
+            <p>
+              Department for Energy Security and Net Zero, & Department for Business, E. & I. S. (2021). Net Zero Strategy: Build Back Greener. 
+              <a href="https://www.gov.uk/government/publications/net-zero-strategy">https://www.gov.uk/government/publications/net-zero-strategy</a>
+            </p>
+            <p>
+              Renewable energy datasets 
+              <a href="https://www.gov.uk/government/statistics/renewable-sources-of-energy-chapter-6-digest-of-united-kingdom-energy-statistics-dukes">https://www.gov.uk/government/statistics/renewable-sources-of-energy-chapter-6-digest-of-united-kingdom-energy-statistics-dukes</a>
+            </p>
+            <p>
+              Lampros Bisdounis (2023). Net zero transformation: Industry and Regulators Committee report. Accessed at: 
+              <a href="https://lordslibrary.parliament.uk/net-zero-transformation-industry-and-regulators-committee-report/">https://lordslibrary.parliament.uk/net-zero-transformation-industry-and-regulators-committee-report/</a>
+            </p>
+            <p>
+              Energy Systems Catapult (2023) COVID-19 impact on domestic energy consumption. Energy Systems Catapult. Available at: 
+              <a href="https://es.catapult.org.uk/insight/covid-impact-on-domestic-energy-consumption/">https://es.catapult.org.uk/insight/covid-impact-on-domestic-energy-consumption/</a> (Accessed: 14 October 2023).
+            </p>
+            <p>
+              Department for Business, Energy & Industrial Strategy (2022) Energy Consumption in the UK 2022. Available at: 
+              <a href="https://assets.publishing.service.gov.uk/media/634684bed3bf7f6183b8570c/Energy_Consumption_in_the_UK_2022_10102022.pdf">https://assets.publishing.service.gov.uk/media/634684bed3bf7f6183b8570c/Energy_Consumption_in_the_UK_2022_10102022.pdf</a> (Accessed: 17 May 2024).
+            </p>
+        </section>
+    </div>
+
+    <script>
+        function navigateTo(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navbarLinks = document.querySelectorAll('#navbar ul li a');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 60; 
+                if (pageYOffset >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navbarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.querySelectorAll('#navbar ul li a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('#navbar ul li a').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

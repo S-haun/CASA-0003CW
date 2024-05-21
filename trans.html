@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Energy Consumption Overview</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        #chartContainer { width: 840px; margin: auto; margin-top: 100px; }
+        #chartContainer p { margin-left: 60px; margin-bottom: 10px; /* Increased margin-bottom */ margin-top: 0; padding: 0; }
+        #charttitle { font: bold 22px Verdana, sans-serif; }
+    </style>
+</head>
+<body>
+    <div id="chartContainer">
+        <p id="charttitle">Transport Energy Consumption</p>
+        <p id="chartsubhead">Data from 2010-2022. From GOV.UK.</p>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script>
+        const years = [];
+        const coalData = [];
+        const electricityData = [];
+        const petroleumData = [];
+        const bioenergyData = [];
+        const naturalGasData = [];
+
+        fetch('trans.csv')
+            .then(response => response.text())
+            .then(csvString => {
+                const data = Papa.parse(csvString, { header: true }).data;
+                data.forEach(row => {
+                    years.push(row.Year);
+                    coalData.push(parseFloat(row.Coal));
+                    electricityData.push(parseFloat(row.Electricity));
+                    petroleumData.push(parseFloat(row.Petroleum));
+                    bioenergyData.push(parseFloat(row['Bioenergy & waste']));
+                    naturalGasData.push(parseFloat(row['Natural gas']));
+                });
+                renderChart();
+            });
+
+        function renderChart() {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Petroleum',
+                        data: petroleumData,
+                        backgroundColor: 'rgba(244, 67, 54, 0.5)'
+                    }, {
+                        label: 'Coal',
+                        data: coalData,
+                        backgroundColor: 'rgba(101, 33, 171, 0.5)'
+                    } ,{
+                        label: 'Bioenergy & Waste',
+                        data: bioenergyData,
+                        backgroundColor: 'rgba(76, 175, 80, 0.5)'
+                    }, {
+                        label: 'Electricity',
+                        data: electricityData,
+                        backgroundColor: 'rgba(33, 150, 243, 0.5)'
+                    }, {
+                        label: 'Natural Gas',
+                        data: naturalGasData,
+                        backgroundColor: 'rgba(255, 193, 7, 0.5)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Year',
+                                font: { size: 13, style: 'normal'}
+                            }},
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Energy Consumption (in thousand tonnes of oil equivalent)',
+                                font: { size: 13, style: 'normal' }
+                            }
+                        }
+                    },
+                    responsive: true,
+                    animation: {
+                        duration: 400,
+                        easing: 'easeInOutQuad'
+                    },
+                    plugins: {
+                        datalabels: {
+                            color: '#FFF',
+                            formatter: function(value, context) {
+                                let sum = 0;
+                                const dataArr = context.chart.data.datasets;
+                                dataArr.forEach(dataset => {
+                                    sum += dataset.data[context.dataIndex];
+                                });
+                                const percentage = (value / sum * 100).toFixed(2) + '%';
+                                return percentage;
+                            },
+                            anchor: 'end',
+                            align: 'top',
+                            offset: 10
+                        },
+                        legend: {
+                            onClick: function (event, legendItem, legend) {
+                                var index = legendItem.datasetIndex;
+                                var ci = legend.chart;
+                                var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                                ci.data.datasets.forEach(function (e, i) {
+                                    var meta = ci.getDatasetMeta(i);
+
+                                    if (i !== index) {
+                                        if (!alreadyHidden) {
+                                            meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                                        } else if (meta.hidden === null) {
+                                            meta.hidden = true;
+                                        }
+                                    } else if (i === index) {
+                                        meta.hidden = null;
+                                    }
+                                });
+
+                                ci.update();
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Please click on the color buttons below to see the distribution of each type. Double click to return to the overview'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    
+</body>
+</html>
